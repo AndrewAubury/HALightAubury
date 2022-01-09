@@ -45,6 +45,7 @@ class AuburyESPLight(LightEntity):
 
     def __init__(self, light) -> None:
         """Initialize an AwesomeLight."""
+        self._unique_id = "andrewesp.smallstrip"
         self._light = light
         self._name = light
         self._state = None
