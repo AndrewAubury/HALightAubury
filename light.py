@@ -40,13 +40,13 @@ def setup_platform(
     add_entities(AuburyESPLight("Small LED Strip"))
 
 
-class AwesomeLight(LightEntity):
+class AuburyESPLight(LightEntity):
     """Representation of an Awesome Light."""
 
     def __init__(self, light) -> None:
         """Initialize an AwesomeLight."""
         self._light = light
-        self._name = light.name
+        self._name = light
         self._state = None
         self._brightness = None
 
@@ -75,7 +75,7 @@ class AwesomeLight(LightEntity):
         You can skip the brightness part if your light does not support
         brightness control.
         """
-        self._light.brightness = kwargs.get(ATTR_BRIGHTNESS, 1024)
+        self.brightness = kwargs.get(ATTR_BRIGHTNESS, 1024)
        
         x = requests.get('https://light.minepos.net/LED='.str(kwargs.get(ATTR_BRIGHTNESS, 1024)))
 
