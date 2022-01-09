@@ -2,8 +2,7 @@
 from __future__ import annotations
 
 import logging
-
-import awesomelights
+import json 
 import voluptuous as vol
 
 # Import the device class from the component that you want to support
@@ -38,16 +37,7 @@ def setup_platform(
     username = config[CONF_USERNAME]
     password = config.get(CONF_PASSWORD)
 
-    # Setup connection with devices/cloud
-    hub = awesomelights.Hub(host, username, password)
-
-    # Verify that passed in configuration works
-    if not hub.is_valid_login():
-        _LOGGER.error("Could not connect to AwesomeLight hub")
-        return
-
-    # Add devices
-    add_entities(AwesomeLight(light) for light in hub.lights())
+    add_entities(AuburyESPLight("Small LED Strip"))
 
 
 class AwesomeLight(LightEntity):
@@ -85,18 +75,21 @@ class AwesomeLight(LightEntity):
         You can skip the brightness part if your light does not support
         brightness control.
         """
-        self._light.brightness = kwargs.get(ATTR_BRIGHTNESS, 255)
-        self._light.turn_on()
+        self._light.brightness = kwargs.get(ATTR_BRIGHTNESS, 1024)
+       
+        x = requests.get('https://light.minepos.net/LED='.str(kwargs.get(ATTR_BRIGHTNESS, 1024)))
 
     def turn_off(self, **kwargs: Any) -> None:
         """Instruct the light to turn off."""
-        self._light.turn_off()
+        
+        x = requests.get('https://light.minepos.net/LED=OFF')
 
     def update(self) -> None:
         """Fetch new state data for this light.
 
         This is the only method that should fetch new data for Home Assistant.
         """
-        self._light.update()
-        self._state = self._light.is_on()
-        self._brightness = self._light.brightness
+        x = requests.get('https://light.minepos.net/api')
+        y = json.loads(x)
+        self._state = y["state"]
+        self._brightness = y["brightness"]

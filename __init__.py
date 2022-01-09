@@ -1,1 +1,1 @@
-"""Example Lights integration."""
+"""Bedroom Poundland ESP Lights integration."""
