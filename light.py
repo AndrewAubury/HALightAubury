@@ -90,6 +90,6 @@ class AuburyESPLight(LightEntity):
         This is the only method that should fetch new data for Home Assistant.
         """
         x = requests.get('https://light.minepos.net/api')
-        y = json.loads(x)
+        y = x.json()
         self._state = y["state"]
         self._brightness = y["brightness"]
