@@ -63,8 +63,12 @@ class AuburyESPLight(LightEntity):
         that brightness is not supported for this light.
         """
         return self._brightness
+    
+    @property
+    def unique_id(self):
+        return "andrewesp.smallstrip"
 
-    @property_
+    @property
     def supported_features(self):
             """Flag supported features.
             This method is optional. Removing it indicates to Home Assistant
