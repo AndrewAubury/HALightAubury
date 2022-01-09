@@ -37,7 +37,7 @@ def setup_platform(
     username = config[CONF_USERNAME]
     password = config.get(CONF_PASSWORD)
 
-    add_entities(AuburyESPLight("Small LED Strip"))
+    add_entities([AuburyESPLight("Small LED Strip")],True)
 
 
 class AuburyESPLight(LightEntity):
