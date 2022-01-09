@@ -64,6 +64,14 @@ class AuburyESPLight(LightEntity):
         """
         return self._brightness
 
+    @property_
+    def supported_features(self):
+            """Flag supported features.
+            This method is optional. Removing it indicates to Home Assistant
+            that brightness is not supported for this light.
+            """
+            return SUPPORT_BRIGHTNESS  # or use 1 instead of the constant
+
     @property
     def is_on(self) -> bool | None:
         """Return true if light is on."""
