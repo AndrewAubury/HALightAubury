@@ -55,14 +55,14 @@ class AuburyESPLight(LightEntity):
         """Return the display name of this light."""
         return self._name
 
-    @property
-    def brightness(self):
-        """Return the brightness of the light.
-
-        This method is optional. Removing it indicates to Home Assistant
-        that brightness is not supported for this light.
-        """
-        return self._brightness
+ #   @property
+ #   def brightness(self):
+ #       """Return the brightness of the light.
+#
+ #       This method is optional. Removing it indicates to Home Assistant
+ #       that brightness is not supported for this light.
+ #       """
+ #       return self._brightness
 
     @property
     def is_on(self) -> bool | None:
@@ -74,10 +74,8 @@ class AuburyESPLight(LightEntity):
 
         You can skip the brightness part if your light does not support
         brightness control.
-        """
-        self.brightness = kwargs.get(ATTR_BRIGHTNESS, 1024)
-       
-        x = requests.get('https://light.minepos.net/LED='.str(kwargs.get(ATTR_BRIGHTNESS, 1024)))
+        """       
+        x = requests.get('https://light.minepos.net/LED=ON')
 
     def turn_off(self, **kwargs: Any) -> None:
         """Instruct the light to turn off."""
